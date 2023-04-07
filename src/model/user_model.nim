@@ -32,7 +32,7 @@ type UserId* = distinct int64
 proc `==`*(a, b: UserId): bool {.borrow.}
 proc hash*(id: UserId): Hash {.borrow.}
 proc `$`*(id: UserId): string =
-  result = "user" & $int(id)
+  result = "user" & $int64(id)
 
 type User* = object
   ## Represents a user
