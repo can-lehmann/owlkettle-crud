@@ -59,7 +59,7 @@ method view(list: UserListState): Widget =
                     mode = EditUserUpdate
                 
                 if res.kind == DialogAccept:
-                  # The "Create" button was clicked
+                  # The "Update" button was clicked
                   list.model.update(EditUserDialogState(state).user)
             
             # Delete Button
