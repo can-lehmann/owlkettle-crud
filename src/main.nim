@@ -80,4 +80,4 @@ when isMainModule:
   # Entry point for the application.
   # Loads the model from the database and starts the application.
   let model = newUserModel(DATABASE_PATH)
-  brew(gui(App(userModel = model)))
+  brew(gui(App(userModel = model)), icons=["icons/"])

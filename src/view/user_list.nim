@@ -48,7 +48,7 @@ method view(list: UserListState): Widget =
             # Edit Button
             
             Button {.expand: false.}:
-              icon = "document-edit-symbolic"
+              icon = "entity-edit"
               
               proc clicked() =
                 ## Opens the EditUserDialog for updating the existing user

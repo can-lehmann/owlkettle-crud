@@ -55,9 +55,12 @@ See [edit_user_dialog.nim](src/view/edit_user_dialog.nim) for details.
 
 ## Funding
 
-The funding for this example was donated by itwrx.org ([@ITwrx](https://github.com/ITwrx)).
+The funding for this example was donated by [itwrx.org](https://itwrx.org/) ([@ITwrx](https://github.com/ITwrx)).
 
 ## License
 
 This example is licensed under the MIT license.
 See `LICENSE.txt` for more information.
+
+The files in `icons/` are created by Font Awesome and licensed under the CC BY 4.0 License (https://creativecommons.org/licenses/by/4.0/).
+

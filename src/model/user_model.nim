@@ -99,7 +99,7 @@ proc update*(model: UserModel, user: User) =
   # Update UserModel.users
   model.users[user.id] = user
 
-proc search*(model: UserModel, filter: string): seq[User] =
+proc search*(model: UserModel, filter: string): seq[User] {.locks: 0.} =
   ## Returns a seq of all users that match the given filter.
   for id, user in model.users:
     if user.matches(filter):
