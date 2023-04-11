@@ -41,6 +41,7 @@ The following shows the directory structure of the project:
     - [app_menu_button.nim](src/view/app_menu_button.nim): `AppMenuButton` widget
   - [main.nim](src/main.nim): Entry point for the application and `App` widget
 - **assets**: Images used for documentation
+- **icons**: Additional icons used in the application
 
 ## Widgets
 
