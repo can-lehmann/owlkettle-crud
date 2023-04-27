@@ -42,7 +42,7 @@ method view(list: UserListState): Widget =
             spacing = 6
             
             Label:
-              text = user.lastName & ", " & user.firstName
+              text = user.lastName & ", " & user.firstName & " (" & $user.permissions & ")"
               xAlign = 0 # Align left
             
             # Edit Button

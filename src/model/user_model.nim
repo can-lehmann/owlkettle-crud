@@ -34,11 +34,18 @@ proc hash*(id: UserId): Hash {.borrow.}
 proc `$`*(id: UserId): string =
   result = "user" & $int64(id)
 
-type User* = object
-  ## Represents a user
-  id*: UserId
-  firstName*: string
-  lastName*: string
+type
+  UserPermissions* = enum
+    UserDefault = "User"
+    UserModerator = "Moderator"
+    UserAdmin = "Admin"
+  
+  User* = object
+    ## Represents a user
+    id*: UserId
+    firstName*: string
+    lastName*: string
+    permissions*: UserPermissions
 
 proc matches*(user: User, filter: string): bool =
   ## Checks if the user matches the given filter.
@@ -62,15 +69,16 @@ proc newUserModel*(path: string = ":memory:"): UserModel =
     CREATE TABLE IF NOT EXISTS User(
       id INTEGER PRIMARY KEY,
       firstName TEXT,
-      lastName TEXT
+      lastName TEXT,
+      permissions INTEGER
     )
   """)
   
   # Load all existing users into UserModel.users
   var users = initTable[UserId, User]()
-  for row in db.iterate("SELECT id, firstName, lastName FROM User"):
-    let (id, firstName, lastName) = row.unpack((UserId, string, string))
-    users[id] = User(id: id, firstName: firstName, lastName: lastName)
+  for row in db.iterate("SELECT id, firstName, lastName, permissions FROM User"):
+    let (id, firstName, lastName, permissions) = row.unpack((UserId, string, string, UserPermissions))
+    users[id] = User(id: id, firstName: firstName, lastName: lastName, permissions: permissions)
   
   result = UserModel(db: db, users: users)
 
@@ -79,8 +87,8 @@ proc add*(model: UserModel, user: User) =
   
   # Insert new user into database
   model.db.exec(
-    "INSERT INTO User (firstName, lastName) VALUES (?, ?)",
-    user.firstName, user.lastName
+    "INSERT INTO User (firstName, lastName, permissions) VALUES (?, ?, ?)",
+    user.firstName, user.lastName, user.permissions
   )
   
   # Insert new user into UserModel.users
@@ -92,8 +100,8 @@ proc update*(model: UserModel, user: User) =
   
   # Update user in database
   model.db.exec(
-    "UPDATE User SET firstName = ?, lastName = ? WHERE id = ?",
-    user.firstName, user.lastName, user.id
+    "UPDATE User SET firstName = ?, lastName = ?, permissions = ? WHERE id = ?",
+    user.firstName, user.lastName, user.permissions, user.id
   )
   
   # Update UserModel.users

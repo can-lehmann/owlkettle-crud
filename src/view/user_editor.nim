@@ -71,5 +71,25 @@ method view(editor: UserEditorState): Widget =
           # Call the changed callback
           if not editor.changed.isNil:
             editor.changed.callback(editor.user)
+      
+      # Kind
+      
+      Label {.x: 0, y: 2, vAlign: AlignStart.}:
+        text = "Permissions"
+        xAlign = 0 # Align left
+      
+      RadioGroup {.x: 1, y: 2.}:
+        selected = ord(editor.user.permissions)
+        proc select(index: int) =
+          editor.user.permissions = UserPermissions(index)
+          
+          # Call the changed callback
+          if not editor.changed.isNil:
+            editor.changed.callback(editor.user)
+        
+        for option in low(UserPermissions)..high(UserPermissions):
+          Label:
+            text = $option
+            xAlign = 0
 
 export UserEditor

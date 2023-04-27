@@ -49,9 +49,9 @@ method view(button: AppMenuButtonState): Widget =
               
               const EXAMPLE_USERS = [
                 User(firstName: "Max", lastName: "Mustermann"),
-                User(firstName: "John", lastName: "Doe"),
+                User(firstName: "John", lastName: "Doe", permissions: UserModerator),
                 User(firstName: "Erika", lastName: "Mustermann"),
-                User(firstName: "Jane", lastName: "Doe")
+                User(firstName: "Jane", lastName: "Doe", permissions: UserAdmin)
               ]
               
               for user in EXAMPLE_USERS:
